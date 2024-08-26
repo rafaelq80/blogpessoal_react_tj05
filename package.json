@@ -11,9 +11,11 @@
   },
   "dependencies": {
     "@phosphor-icons/react": "^2.1.7",
+    "axios": "^1.7.5",
     "blogpessoal": "file:",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
+    "react-loader-spinner": "^6.1.6",
     "react-router-dom": "^6.26.1"
   },
   "devDependencies": {
