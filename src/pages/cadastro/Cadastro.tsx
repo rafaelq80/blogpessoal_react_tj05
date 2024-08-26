@@ -19,7 +19,7 @@ function Cadastro() {
     foto: ""
   })
 
-  // Estado que vai guarda a confirmação da senha
+  // Estado que vai guardar a confirmação da senha
   const [confirmaSenha, setConfirmaSenha] = useState<string>("");
 
   // Estado que vai indicar quando a animação (loader) será carregada
@@ -33,12 +33,11 @@ function Cadastro() {
   }, [usuario])
 
   // Redireciona para o Componente Login (rota /login)
-
   function retornar() {
     navigate('/login')
   }
 
-  // Função que atualiza as propriedades do Estado Usuário
+  // Função que atualiza as propriedades do Estado Usuário com os dados digitados no input
   function atualizarEstado(e: ChangeEvent<HTMLInputElement>) {
     setUsuario({
       ...usuario,
@@ -46,19 +45,26 @@ function Cadastro() {
     })
   }
 
+  // Função que atualiza o Estado confirmaSenha
   function handleConfirmarSenha(e: ChangeEvent<HTMLInputElement>) {
     setConfirmaSenha(e.target.value)
   }
 
+  // Função para cadastrar um novo usuário
   async function cadastrarNovoUsuario(e: FormEvent<HTMLFormElement>) {
+
+    // Impede o comportamento padrão do formulário
     e.preventDefault()
 
+    // Valida a senha
     if (confirmaSenha === usuario.senha && usuario.senha.length >= 8) {
 
+      // Inicializa a animação
       setIsLoading(true)
 
       try {
 
+        // Executa a função de cadastro do usuário
         await cadastrarUsuario(`/usuarios/cadastrar`, usuario, setUsuario)
         alert("Usuário Cadastrado com Sucesso!")
 
@@ -72,6 +78,7 @@ function Cadastro() {
       setConfirmaSenha("")
     }
 
+    // Finaliza a animação
     setIsLoading(false)
   }
 
