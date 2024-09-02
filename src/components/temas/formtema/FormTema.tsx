@@ -90,7 +90,7 @@ function FormTema() {
      * - Se for diferente de undefined, a função assume que se 
      *   trata da atualização de um tema existente (PUT). 
      * 
-     * - Se não diferente de undefined, a função assume que se 
+     * - Se não for diferente de undefined, a função assume que se 
      *   trata da criação de um novo tema (POST).
      */
     async function gerarNovoTema(e: ChangeEvent<HTMLFormElement>) {
