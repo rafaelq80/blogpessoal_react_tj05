@@ -4,6 +4,7 @@ import Usuario from '../../models/Usuario'
 import { cadastrarUsuario } from '../../services/Service';
 import { useNavigate } from 'react-router-dom';
 import { RotatingLines } from 'react-loader-spinner';
+import { ToastAlerta } from '../../utils/ToastAlerta';
 
 function Cadastro() {
 
@@ -164,14 +165,14 @@ function Cadastro() {
          * com os dados recebidos na Resposta da Requisição HTTP. 
          */
         await cadastrarUsuario(`/usuarios/cadastrar`, usuario, setUsuario);
-        alert('Usuário cadastrado com sucesso!');
+        ToastAlerta('Usuário cadastrado com sucesso!', 'sucesso');
 
       } catch (error) {
-        alert('Erro ao cadastrar o usuário!')
+        ToastAlerta('Erro ao cadastrar o usuário!', 'erro')
       }
 
     } else {
-      alert("Dados estão inconsistentes! Verifique os dados do usuário.");
+      ToastAlerta("Dados estão inconsistentes! Verifique os dados do usuário.", 'erro');
       setUsuario({ ...usuario, senha: '' });
       setConfirmaSenha('');
     }
@@ -181,9 +182,8 @@ function Cadastro() {
 
   return (
     <>
-      <div className="grid grid-cols-1 lg:grid-cols-2 h-screen 
-            place-items-center font-bold">
-        <div className="fundoCadastro hidden lg:block"></div>
+      <div className="place-items-center grid grid-cols-1 lg:grid-cols-2 h-screen font-bold">
+        <div className="lg:block hidden fundoCadastro"></div>
 
         {/* 
           Adicionamos o Evento onSubmit no formulário, passando como argumento 
@@ -191,10 +191,10 @@ function Cadastro() {
           (clicar no botão entrar), a função definida dentro dos parênteses será
           executada. 
         */}
-        <form className='flex justify-center items-center flex-col w-2/3 gap-3'
+        <form className='flex flex-col justify-center items-center gap-3 w-2/3'
           onSubmit={cadastrarNovoUsuario}
         >
-          <h2 className='text-slate-900 text-5xl'>Cadastrar</h2>
+          <h2 className='text-5xl text-slate-900'>Cadastrar</h2>
           <div className="flex flex-col w-full">
             <label htmlFor="nome">Nome</label>
             <input
@@ -202,7 +202,7 @@ function Cadastro() {
               id="nome"
               name="nome"
               placeholder="Nome"
-              className="border-2 border-slate-700 rounded p-2"
+              className="border-2 border-slate-700 p-2 rounded"
                
               /**
                * Através da propriedade value, definimos que o valor dentro desse 
@@ -229,7 +229,7 @@ function Cadastro() {
               id="usuario"
               name="usuario"
               placeholder="Usuario"
-              className="border-2 border-slate-700 rounded p-2"
+              className="border-2 border-slate-700 p-2 rounded"
 
               /**
                * Através da propriedade value, definimos que o valor dentro desse 
@@ -256,7 +256,7 @@ function Cadastro() {
               id="foto"
               name="foto"
               placeholder="Foto"
-              className="border-2 border-slate-700 rounded p-2"
+              className="border-2 border-slate-700 p-2 rounded"
 
               /**
                * Através da propriedade value, definimos que o valor dentro desse 
@@ -283,7 +283,7 @@ function Cadastro() {
               id="senha"
               name="senha"
               placeholder="Senha"
-              className="border-2 border-slate-700 rounded p-2"
+              className="border-2 border-slate-700 p-2 rounded"
 
               /**
                * Através da propriedade value, definimos que o valor dentro desse 
@@ -310,7 +310,7 @@ function Cadastro() {
               id="confirmarSenha"
               name="confirmarSenha"
               placeholder="Confirmar Senha"
-              className="border-2 border-slate-700 rounded p-2"
+              className="border-2 border-slate-700 p-2 rounded"
 
                /**
                * Através da propriedade value, definimos que o valor dentro desse 
@@ -331,21 +331,18 @@ function Cadastro() {
               onChange={(e: ChangeEvent<HTMLInputElement>) => handleConfirmaSenha(e)}
             />
           </div>
-          <div className="flex justify-around w-full gap-8">
+          <div className="flex justify-around gap-8 w-full">
             {/* 
               Adicionamos no botão Cancelar o evento onClick para executar a função retornar(). 
             */}
-            <button className='rounded text-white bg-red-400 
-                  hover:bg-red-700 w-1/2 py-2'
+            <button className='bg-red-400 hover:bg-red-700 py-2 rounded w-1/2 text-white'
               onClick={retornar}
             >
               Cancelar
             </button>
             <button
               type='submit'
-              className='rounded text-white bg-indigo-400 
-                           hover:bg-indigo-900 w-1/2 py-2
-                           flex justify-center'
+              className='flex justify-center bg-indigo-400 hover:bg-indigo-900 py-2 rounded w-1/2 text-white'
             >
               {isLoading ? <RotatingLines
                 strokeColor="white"
