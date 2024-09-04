@@ -20,7 +20,8 @@ import axios from "axios";
  * - /postagens é a URL do endpoint
  */
 const api = axios.create({
-    baseURL: "https://blogpessoal-hogn.onrender.com",
+    //baseURL: "https://blogpessoal-hogn.onrender.com",
+    baseURL: import.meta.env.VITE_API_URL
 })
 
 
